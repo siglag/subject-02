@@ -19,6 +19,7 @@ function addTask() {
 
   task.textContent = taskInput.value;
   deleteButton.textContent = "Delete";
+  deleteButton.setAttribute("onclick", "deleteTask(this)");
   deleteButton.classList.add("delete-button");
 
   task.appendChild(deleteButton);
@@ -29,24 +30,13 @@ function addTask() {
 
   taskInput.value = "";
 }
-
-addButton.addEventListener("click", function () {
-  addTask();
-});
-
-taskInput.addEventListener("keydown", function (event) {
-  if (event.key === "Enter") {
-    addTask();
-  }
-});
-
-taskList.addEventListener("click", function (event) {
-  if (event.target === taskList) {
+function deleteTask(element) {
+  if (element.target === taskList) {
     return;
   }
 
-  if (event.target.classList.contains("delete-button")) {
-    event.target.parentElement.remove();
+  if (element.classList.contains("delete-button")) {
+    element.parentElement.remove();
 
     totalTasks--;
     updateTaskCount();
@@ -54,5 +44,5 @@ taskList.addEventListener("click", function (event) {
     return;
   }
 
-  event.target.classList.add("completed");
-});
+  element.classList.add("completed");
+}
